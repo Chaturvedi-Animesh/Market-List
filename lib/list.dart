@@ -10,8 +10,7 @@ class _MyListState extends State<MyList> {
   final tasttest= TextEditingController();
   var dbref=FirebaseDatabase().reference().child("tasks");
 
-  void addclick(){
-    String tx=tasttest.text;
+  void addclick( String tx){
     tasttest.clear();
     dbref.push().set({
       "task":tx,
@@ -31,7 +30,7 @@ class _MyListState extends State<MyList> {
                 width: 250,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: TextField(
-                  onSubmitted: (t)=>addclick(),
+                  onSubmitted: (t)=>addclick(t),
                   controller: tasttest,
                   decoration: InputDecoration(
                     hintText: "Enter new item",
@@ -42,7 +41,7 @@ class _MyListState extends State<MyList> {
                 color: Colors.red[500],
                 child: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed:addclick,
+                  onPressed:()=>{addclick(tasttest.text)},
                 ),
               )
             ],
